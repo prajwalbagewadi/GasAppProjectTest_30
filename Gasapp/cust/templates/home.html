@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HomePage</title>
+    </head>
+    <body>
+            <h1>This is home page</h1>
+            <h2>welcome {{user.username}}</h2>
+            <form method="post">
+                {% csrf_token %}
+                Customer: {{user.username}}<br>
+                Phone No:<input type="text" name="phone" required><br>
+                Address:<textarea rows="3" cols="50" name="address" required></textarea><br>
+                <select name = "dropdown" required>
+                    <option value="gasleak">gasleak</option>
+                    <option value="billissue">billing issues</option>
+                    <option value="newconn">new connection</option>
+                 </select>
+                <input type="submit" name="submit">
+            </form>
+            <h3>Service Requests</h3>
+            <!-- Table to show all service requests and their status -->
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Issue</th>
+                    <th>Status</th>
+                </tr>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.id }}</td>
+                    <td>{{ request.user }}</td>
+                    <td>{{ request.phone }}</td>
+                    <td>{{ request.add }}</td>
+                    <td>{{ request.issue }}</td>
+                    <td>{{ request.stat}}</td> <!-- Display status here -->
+                </tr>
+                {% endfor %}
+            </table>
+    </body>
+</html>

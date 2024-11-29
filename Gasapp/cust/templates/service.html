@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Service Requests</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table border="1">
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Issue</th>
+                    <th>Status</th>
+                </tr>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.user }}</td>
+                    <td>{{ request.phone }}</td>
+                    <td>{{ request.add }}</td>
+                    <td>{{request.date}}</td>
+                    <td>{{ request.issue }}</td>
+                    <td>
+                        <select name = "stat_{{ request.usid }}" required>
+                            
+                            <option value="open">open</option>
+                            <option value="assigned">assign</option>
+                            <option value="close">close</option>
+                            <!--
+                            <option value="open" {% if request.status == 'open' %}selected{% endif %}>open</option>
+                            <option value="assigned" {% if request.status == 'assigned' %}selected{% endif %}>assigned</option>
+                            <option value="closed" {% if request.status == 'closed' %}selected{% endif %}>closed</option>
+                            -->
+                        </select>   
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" name="submit">
+        </form> 
+    </body>
+</html>
