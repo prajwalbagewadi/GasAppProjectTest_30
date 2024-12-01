@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse
 from .models import CustReq
+import random
 # Create your views here.
 uid=0
 def login_view(request):
@@ -32,12 +33,13 @@ def home_view(request):
         addr=request.POST.get('address')
         iss=request.POST.get('dropdown')
         CustReq.objects.create(
-            usid=userid,
+            #usid=userid,
             user=username,
             phone=phoneno,
             add=addr,
             issue=iss,
-            stat=""
+            stat="",
+            reqid=random.randint(1,4000)
         )
         uid+=1
         return redirect('success')
@@ -57,7 +59,7 @@ def service_view(request):
         # Process the form data to update the status of each request
         for req in CustReq.objects.all():
             #requests = CustReq.objects.all()
-            status = request.POST.get(f"stat_{req.id}")  # Fetch status by request ID
+            status = request.POST.get(f"stat_{req.reqid}")  # Fetch status by request ID
             if status:
                 req.stat = status
                 req.save()  # Save the updated status to the database
