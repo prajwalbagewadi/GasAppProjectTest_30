@@ -40,6 +40,7 @@
       }
 
       button {
+        margin-bottom: 15px;
         background-color: yellow;
         text-align: center;
         color: black;
@@ -65,12 +66,25 @@
   </head>
   <body>
     <div class="card">
-      <h2>Customer Login</h2>
+      <h2>SIGN UP</h2>
       <form method="post">
         {% csrf_token %}
-        <input type="" name="username" id="" placeholder="Username" />
-        <input type="password" name="password" id="" placeholder="password" />
-        <button type="submit">Login</button>
+        <input type="" name="username" id="" placeholder="Username" required />
+        <input type="email" name="Email" id="" placeholder="Email" required />
+        <input
+          type="password"
+          name="password"
+          id=""
+          placeholder="password"
+          required
+        />
+        <button type="submit" name="signup">Submit</button>
+        <!-- <form action="get"> -->
+        <button type="submit" name="login">Login</button>
+        <!-- </form> -->
+        <!-- <form action="get"> -->
+        <button type="submit" name="admin">Admin</button>
+        <!-- </form> -->
       </form>
     </div>
     <!-- <pre>

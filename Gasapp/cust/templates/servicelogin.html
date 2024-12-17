@@ -65,11 +65,17 @@
   </head>
   <body>
     <div class="card">
-      <h2>Customer Login</h2>
+      <h2>Service Login</h2>
       <form method="post">
         {% csrf_token %}
-        <input type="" name="username" id="" placeholder="Username" />
-        <input type="password" name="password" id="" placeholder="password" />
+        <input type="" name="username" id="" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          id=""
+          placeholder="password"
+          required
+        />
         <button type="submit">Login</button>
       </form>
     </div>

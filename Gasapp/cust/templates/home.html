@@ -1,44 +1,126 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>HomePage</title>
-    </head>
-    <body>
-            <h1>This is home page</h1>
-            <h2>welcome {{user.username}}</h2>
-            <form method="post">
-                {% csrf_token %}
-                Customer: {{user.username}}<br>
-                Phone No:<input type="text" name="phone" required><br>
-                Address:<textarea rows="3" cols="50" name="address" required></textarea><br>
-                <select name = "dropdown" required>
-                    <option value="gasleak">gasleak</option>
-                    <option value="billissue">billing issues</option>
-                    <option value="newconn">new connection</option>
-                 </select>
-                <input type="submit" name="submit">
-            </form>
-            <h3>Service Requests</h3>
-            <!-- Table to show all service requests and their status -->
-            <table border="1">
-                <tr>
-                    <th>id</th>
-                    <th>Customer</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Issue</th>
-                    <th>Status</th>
-                </tr>
-                {% for request in requests %}
-                <tr>
-                    <td>{{ request.id }}</td>
-                    <td>{{ request.user }}</td>
-                    <td>{{ request.phone }}</td>
-                    <td>{{ request.add }}</td>
-                    <td>{{ request.issue }}</td>
-                    <td>{{ request.stat}}</td> <!-- Display status here -->
-                </tr>
-                {% endfor %}
-            </table>
-    </body>
+  <head>
+    <title>Customer Request Panel</title>
+  </head>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial;
+      line-height: 1.6;
+      background-color: #ffffff;
+      color: #4d4d4d;
+    }
+    .in {
+      width: auto;
+      border: 2px solid #4b4b4b;
+      /*
+      display: flex;
+      flex-direction: column;
+        */
+      padding: 30px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+    input {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
+    textarea {
+      width: 300px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
+    select {
+      width: 300px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
+    button {
+      width: 150px;
+      height: 50px;
+      border-radius: 5px;
+      background-color: #f7ca00;
+    }
+    table,
+    td {
+      border: 2px solid #4b4b4b;
+      text-align: center;
+      padding: 5px;
+    }
+    th {
+      background-color: #f7ca00;
+      border: 2px solid #4b4b4b;
+      color: black;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <h1>Customer Request Page:</h1>
+    <h2>Welcome User: {{user.username}}.</h2>
+    <div class="in">
+      <form method="post">
+        {% csrf_token %}
+        <h2>Enter Details.</h2>
+        <label for="Phone number:">
+          Phone: <input type="text" name="phone" required />
+        </label>
+        <label for="Address">
+          Address:<br /><textarea
+            rows="3"
+            cols="20"
+            name="address"
+            required
+          ></textarea>
+        </label>
+        <label for="Select Issue:">
+          Issue:
+          <select name="dropdown" required>
+            <option value="gasleak">gasleak</option>
+            <option value="billissue">billing issues</option>
+            <option value="newconn">new connection</option>
+          </select>
+        </label>
+        <button type="submit">Submit Request</button>
+        <!-- <input type="submit" name="submit" class="btn" /> -->
+      </form>
+    </div>
+    <h3>Request History:</h3>
+    <!-- Table to show all service requests and their status -->
+    <table>
+      <tr>
+        <th>id</th>
+        <th>Customer</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Issue</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+      {% for request in requests %}
+      <tr>
+        <td>{{ request.id }}</td>
+        <td>{{ request.user }}</td>
+        <td>{{ request.phone }}</td>
+        <td>{{ request.add }}</td>
+        <td>{{ request.issue }}</td>
+        <td>{{ request.date}}</td>
+        <td>{{ request.stat}}</td>
+
+        <!-- Display status here -->
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
 </html>

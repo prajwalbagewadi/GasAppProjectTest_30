@@ -1,41 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <h1>Service Requests</h1>
-        <form method="POST">
-            {% csrf_token %}
-            <table border="1">
-                <tr>
-                    <th>Customer</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Issue</th>
-                    <th>Status</th>
-                </tr>
-                {% for request in requests %}
-                <tr>
-                    <td>{{ request.user }}</td>
-                    <td>{{ request.phone }}</td>
-                    <td>{{ request.add }}</td>
-                    <td>{{request.date}}</td>
-                    <td>{{ request.issue }}</td>
-                    <td>
-                        <select name = "stat_{{ request.reqid }}" required>
-                            
-                            <option value="open">open</option>
-                            <option value="assigned">assign</option>
-                            <option value="close">close</option>
-                            <!--
+  <head>
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial;
+        line-height: 1.6;
+        background-color: #ffffff;
+        color: #4d4d4d;
+      }
+      table,
+      td {
+        border: 2px solid #4b4b4b;
+        text-align: center;
+        padding: 5px;
+      }
+      th {
+        background-color: #f7ca00;
+        border: 2px solid #4b4b4b;
+        color: black;
+        text-align: center;
+      }
+      button {
+        margin-top: 10px;
+        width: 150px;
+        height: 50px;
+        border-radius: 5px;
+        background-color: #f7ca00;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Service Panel</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <th>Customer</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Date</th>
+          <th>Issue</th>
+          <th>Status</th>
+        </tr>
+        {% for request in requests %}
+        <tr>
+          <td>{{ request.user }}</td>
+          <td>{{ request.phone }}</td>
+          <td>{{ request.add }}</td>
+          <td>{{request.date}}</td>
+          <td>{{ request.issue }}</td>
+          <td>
+            <select name="stat_{{ request.reqid }}" required>
+              <option value="open">open</option>
+              <option value="assigned">assign</option>
+              <option value="close">close</option>
+              <!--
                             <option value="open" {% if request.status == 'open' %}selected{% endif %}>open</option>
                             <option value="assigned" {% if request.status == 'assigned' %}selected{% endif %}>assigned</option>
                             <option value="closed" {% if request.status == 'closed' %}selected{% endif %}>closed</option>
                             -->
-                        </select>   
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-            <input type="submit" name="submit">
-        </form> 
-    </body>
+            </select>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              name="delete_requests"
+              value="{{ request.reqid }}"
+            />
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <button type="submit" name="submit">Submit Request</button>
+      <button type="submit" name="delete">Delete Request</button>
+    </form>
+  </body>
 </html>
